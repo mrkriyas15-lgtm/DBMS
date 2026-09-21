@@ -1,0 +1,102 @@
+USE IMPORTHUB;
+CREATE TABLE Orders
+(
+    OrderID INT PRIMARY KEY,
+    CustomerName VARCHAR(100),
+    ProductID INT,
+    Qty INT,
+    TotalAmt DECIMAL(10,2),
+    OrderStatus VARCHAR(20),
+    FOREIGN KEY (ProductID)
+    REFERENCES Product(ProductID)
+);
+
+INSERT INTO Orders VALUES
+(1001, 'RIYAS', 101, 2, 600, 'PENDING'),
+(1002, 'MEENA', 102, 1, 350, 'DELIVERED'),
+(1003, 'KARTHIK', 103, 2, 600, 'SHIPPED'),
+(1004, 'DIVYA', 104, 1, 450, 'DELIVERED'),
+(1005, 'RAHUL', 105, 3, 600, 'PENDING'),
+(1006, 'SWETHA', 106, 2, 360, 'DELIVERED'),
+(1007, 'VIGNESH', 109, 1, 280, 'PENDING'),
+(1008, 'PAVITHRA', 110, 2, 400, 'SHIPPED'),
+(1009, 'SANJAY', 111, 3, 450, 'DELIVERED'),
+(1010, 'HARINI', 112, 1, 250, 'PENDING'),
+(1011, 'DINESH', 113, 2, 400, 'SHIPPED'),
+(1012, 'NITHYA', 114, 2, 360, 'DELIVERED'),
+(1013, 'AJITH', 101, 1, 300, 'PENDING'),
+(1014, 'KEERTHANA', 103, 1, 300, 'SHIPPED'),
+(1015, 'MOHAN', 104, 2, 900, 'DELIVERED'),
+(1016, 'AISHWARYA', 105, 1, 200, 'PENDING'),
+(1017, 'SURYA', 106, 1, 180, 'SHIPPED'),
+(1018, 'DEEPIKA', 109, 2, 560, 'DELIVERED'),
+(1019, 'NAVEEN', 110, 1, 200, 'PENDING'),
+(1020, 'YAMINI', 112, 2, 500, 'SHIPPED');
+
+CREATE TABLE Order_Details
+(
+    OrderDetailID INT PRIMARY KEY,
+    OrderID INT,
+    ProductID INT,
+    Qty INT,
+    UnitPrice DECIMAL(10,2),
+    FOREIGN KEY (OrderID)
+    REFERENCES Orders(OrderID),
+    FOREIGN KEY (ProductID)
+    REFERENCES Product(ProductID));
+
+INSERT INTO Order_Details VALUES
+(501, 1001, 101, 2, 300),
+(502, 1002, 102, 1, 350),
+(503, 1003, 103, 2, 300),
+(504, 1004, 104, 1, 450),
+(505, 1005, 105, 3, 200),
+(506, 1006, 106, 2, 180),
+(507, 1007, 109, 1, 280),
+(508, 1008, 110, 2, 200),
+(509, 1009, 111, 3, 150),
+(510, 1010, 112, 1, 250),
+(511, 1011, 113, 2, 200),
+(512, 1012, 114, 2, 180),
+(513, 1013, 101, 1, 300),
+(514, 1014, 103, 1, 300),
+(515, 1015, 104, 2, 450),
+(516, 1016, 105, 1, 200),
+(517, 1017, 106, 1, 180),
+(518, 1018, 109, 2, 280),
+(519, 1019, 110, 1, 200),
+(520, 1020, 112, 2, 250);
+SELECT * FROM Orders;
+SELECT * FROM Order_Details;
+
+UPDATE Orders
+SET OrderStatus = 'DELIVERED'
+WHERE OrderID = 1001;
+
+SELECT * FROM Orders
+WHERE OrderID = 1001;
+
+UPDATE Orders
+SET Qty = 2,
+    TotalAmt = 700
+WHERE OrderID = 1002;
+
+SELECT * FROM Orders
+WHERE OrderID = 1002;
+
+SELECT * FROM Orders
+WHERE OrderStatus = 'PENDING';
+
+SELECT * FROM Orders
+WHERE OrderStatus = 'SHIPPED';
+
+SELECT * FROM Orders
+WHERE OrderStatus = 'DELIVERED';
+
+SELECT * FROM Orders
+ORDER BY CustomerName;
+
+SELECT * FROM Order_Details;
+
+DROP TABLE IF EXISTS Order_Details;
+DROP TABLE IF EXISTS Orders;
